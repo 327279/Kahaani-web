@@ -1,0 +1,250 @@
+
+/* ============================================= */
+/*          Kahaani Brand Styles - Corrected & Polished */
+/* ============================================= */
+
+/* --- 1. THEME & SETUP --- */
+:root {
+  --maroon-dark: #4a1111;
+  --maroon-red: #aa0000;
+  --beige-bg: #e6d9c6;
+  --sage-text: #d1ce98;
+  --off-white: #f8f5f2;
+  --text-dark: #3a3a3a;
+  --text-light: #5c5c5c;
+}
+@font-face {
+  font-family: 'The Seasons'; 
+  src: url('The Seasons Font/Demo_Fonts/Fontspring-DEMO-theseasons-reg.otf') format('opentype');
+  font-weight: normal; font-style: normal;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--off-white);
+    color: var(--text-dark);
+    opacity: 0; animation: fadeInPage 0.5s ease-out forwards;
+}
+
+/* --- 2. ANIMATIONS --- */
+@keyframes fadeInPage { to { opacity: 1; } }
+@keyframes titleLetterReveal {
+  from { opacity: 0; transform: translateY(50px) rotate(5deg); }
+  to { opacity: 1; transform: translateY(0) rotate(0); }
+}
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 15px rgba(209, 206, 152, 0.2); }
+  50% { box-shadow: 0 0 30px rgba(209, 206, 152, 0.5); }
+}
+.fade-in {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+
+/* --- 3. HEADER & NAVIGATION --- */
+header {
+    position: absolute; top: 0; left: 0; width: 100%; display: flex;
+    justify-content: space-between; align-items: center; padding: 30px 60px; z-index: 10;
+}
+header.header-solid {
+    position: sticky; top:0; background-color: rgba(248, 245, 242, 0.85);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--beige-bg);
+}
+.logo-link {
+    font-family: 'The Seasons', serif; font-weight: normal; font-size: 28px;
+    text-decoration: none; letter-spacing: 1px; color: var(--maroon-dark);
+}
+.hero-container .logo-link { color: var(--off-white); }
+nav ul { list-style: none; display: flex; gap: 40px; }
+nav a {
+    font-family: 'The Seasons', serif;  /* <-- APPLY CUSTOM FONT */
+    text-decoration: none;
+    font-size: 15px;                  /* Slightly larger for the new font */
+    font-weight: normal;              /* Use the font's default weight */
+    text-transform: uppercase;        /* As shown in your image */
+    letter-spacing: 2px;              /* Adjust spacing for style */
+    position: relative;
+    padding: 10px 0;
+    transition: color 0.4s ease, letter-spacing 0.4s ease; /* Smoothly transition spacing on hover */
+    color: var(--text-light);
+}
+nav a:hover {
+    letter-spacing: 2.5px; /* Cool animation effect on hover */
+}
+.hero-container nav a { color: var(--off-white); }
+nav a::after {
+    content: ''; position: absolute; bottom: 0; left: 0;
+    width: 0; height: 1px; transition: width 0.4s cubic-bezier(0.2, 1, 0.2, 1);
+    background-color: var(--maroon-red);
+}
+.hero-container nav a::after { background-color: var(--sage-text); }
+nav a.active, nav a:hover { color: var(--maroon-dark) !important; }
+.hero-container nav a:hover { color: var(--off-white) !important; }
+nav a.active::after, nav a:hover::after { width: 100%; }
+
+/* --- 4. HOME PAGE HERO --- */
+.hero-container {
+    height: 100vh; width: 100%; background-size: cover; background-position: center;
+    position: relative; display: flex; justify-content: center; align-items: center;
+    flex-direction: column; background-image: url('kahaani_background_final.png.webp');
+}
+.hero-content h1 {
+    font-family: 'The Seasons', serif; font-size: clamp(4.5rem, 15vw, 13rem); font-weight: normal;
+    color: var(--off-white); line-height: 1; text-transform: uppercase; letter-spacing: 5px;
+}
+.hero-content h1 span {
+    display: inline-block; opacity: 0; transform-origin: bottom;
+    animation: titleLetterReveal 1.2s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+}
+.hero-content h2 {
+    font-family: 'The Seasons', serif; /* Use your custom font */
+    color: #4a1111; 
+    font-weight: normal;              /* Use the font's default weight */
+    text-transform: none;             /* This font looks more elegant in sentence case */
+    font-size: 1.2rem;                /* Slightly larger for better style */
+    letter-spacing: 1.5px;            /* Adjusted for readability */
+    margin: 20px 0 30px;
+    text-shadow: 0 0 15px rgba(248, 245, 242, 0.3); /* Adds a very subtle glow for visibility */
+}
+/* -- Explore Button - Cool & Animated -- */
+/* -- Explore Button - Cool & Animated -- */
+.explore-btn {
+    display: inline-block;
+    position: relative; /* Needed for the ::before pseudo-element */
+    overflow: hidden;  /* Hides the slide-in element initially */
+    z-index: 1; /* Ensures text stays on top */
+
+    background-color: transparent;
+    border: 1.5px solid var(--sage-text);
+    color: var(--off-white);
+    padding: 14px 40px;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    font-size: 13px;
+    font-weight: 400; /* Slightly bolder for visibility */
+    text-shadow: 0 0 10px rgba(0,0,0,0.4); /* Makes text pop */
+    
+    transition: color 0.4s ease; /* Transition for the text color */
+    
+    /* New pulsing glow animation */
+    animation: pulseGlow 3s infinite 2s; /* Starts after 2s delay */
+}
+/* This pseudo-element is the dark maroon background that slides in */
+.explore-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #4a1111; /* UPDATED to your brand's dark maroon */
+    transform: translateX(-101%);
+    transition: transform 0.5s cubic-bezier(0.7, 0, 0.2, 1);
+    z-index: -1;
+}
+
+.explore-btn:hover::before {
+    transform: translateX(0); /* Slides the background in on hover */
+}
+
+.explore-btn:hover {
+    color: var(--off-white); /* UPDATED text color to white for visibility */
+    animation: none; /* Stops the glow animation on hover */
+}
+
+/* --- 5. PRODUCTS PAGE --- */
+.page-content { padding: 80px 40px; max-width: 1800px; margin: 0 auto;}
+.page-intro { text-align: center; max-width: 600px; margin: -20px auto 80px; line-height: 1.7; color: var(--text-light); }
+.product-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 60px 40px;
+}
+.product-card { text-align: center; }
+.product-image-container {
+    position: relative; overflow: hidden; margin-bottom: 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: box-shadow 0.4s ease;
+}
+.product-image-container:hover { box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+.product-image-container img {
+    width: 100%; display: block; transition: transform 0.7s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+.product-card:hover .product-image-container img { transform: scale(1.07); }
+.image-overlay {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,0.5), transparent, transparent);
+    display: flex; justify-content: center; align-items: flex-end;
+    opacity: 0; transition: opacity 0.5s ease; padding: 30px;
+}
+.product-card:hover .image-overlay { opacity: 1; }
+.stylish-buy-btn {
+    background: var(--off-white); color: var(--maroon-dark); border: none; padding: 16px 50px;
+    text-decoration: none; font-family: 'Poppins', sans-serif; font-size: 14px; text-transform: uppercase;
+    letter-spacing: 1.5px; cursor: pointer; transform: translateY(15px);
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); opacity: 0;
+}
+.product-card:hover .stylish-buy-btn { transform: translateY(0); opacity: 1; transition-delay: 0.1s; }
+.stylish-buy-btn:hover { background-color: #fff; transform: scale(1.05) !important; }
+.product-info h3 {
+    font-family: 'The Seasons', serif; color: var(--maroon-dark); font-size: 28px;
+    font-weight: normal; margin-bottom: 8px; transition: color 0.3s ease;
+}
+.product-card:hover .product-info h3 { color: var(--maroon-red); }
+.product-info p { font-size: 16px; line-height: 1.6; color: var(--text-light); }
+
+/* --- 6. REDESIGNED CONTENT PAGES (About, Storybook, Care) --- */
+.page-content .content-wrapper,
+.about-container { max-width: 900px; margin: 0 auto; }
+.page-content h1 {
+    font-family: 'The Seasons', serif; font-size: clamp(3rem, 10vw, 4.5rem); color: var(--maroon-dark);
+    text-align: center; font-weight: normal; margin-bottom: 40px;
+}
+.page-content p { color: var(--text-light); line-height: 1.9; font-size: 16px; margin-bottom: 20px; }
+.signature { text-align: center; margin-top: 60px; font-style: italic; color: var(--maroon-dark); font-size: 18px; }
+
+/* ABOUT PAGE LAYOUT */
+.about-container { display: grid; grid-template-columns: 1.2fr 1fr; gap: 80px; align-items: center; }
+.about-image img { width: 100%; height: auto; }
+
+/* STORYBOOK PAGE LAYOUT */
+.storybook-content h1 { margin-bottom: 20px; }
+.storybook-content > p:first-of-type {
+    text-align: center; font-style: italic; font-size: 18px; margin-bottom: 40px;
+}
+.storybook-content h2 {
+    font-family: 'The Seasons', serif; color: var(--maroon-dark); margin: 40px auto;
+    font-weight: normal; text-align: center; font-size: 36px; max-width: 80%; line-height: 1.4;
+}
+
+/* SILK CARE GUIDE LAYOUT - CORRECTED */
+.care-guide { max-width: 900px; }
+.care-section { margin-bottom: 50px; }
+.care-section h3 {
+    font-family: 'The Seasons', serif; font-weight: normal; color: var(--maroon-dark);
+    font-size: 32px; margin-bottom: 20px; border-bottom: 1px solid var(--beige-bg);
+    padding-bottom: 10px;
+}
+.care-list { list-style: none; padding-left: 0; }
+.care-list li {
+    padding-left: 35px; position: relative; margin-bottom: 15px;
+    font-size: 17px; color: var(--text-dark); /* Darker for better readability */
+}
+.care-list li::before {
+    content: '✧'; position: absolute; left: 0; top: 0px;
+    color: var(--maroon-red); font-size: 20px;
+}
+
+/* Staggered List Item Animation - CORRECTED */
+.fade-in.visible .care-list li { opacity: 1; transform: translateX(0); }
+.care-list li {
+    opacity: 0; transform: translateX(-20px);
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+}
+.fade-in.visible .care-list li:nth-child(1) { transition-delay: 0.1s; }
+.fade-in.visible .care-list li:nth-child(2) { transition-delay: 0.2s; }
+.fade-in.visible .care-list li:nth-child(3) { transition-delay: 0.3s; }
+.fade-in.visible .care-list li:nth-child(4) { transition-delay: 0.4s; }
