@@ -37,12 +37,34 @@ body {
   0%, 100% { box-shadow: 0 0 15px rgba(209, 206, 152, 0.2); }
   50% { box-shadow: 0 0 30px rgba(209, 206, 152, 0.5); }
 }
-.fade-in {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+/* NEW: Scrollytelling Animation Classes */
+.fade-in, .fade-in-left, .fade-in-right, .scale-in {
+    opacity: 0;
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
-.fade-in.visible { opacity: 1; transform: translateY(0); }
+.fade-in { transform: translateY(40px); }
+.fade-in-left { transform: translateX(-40px); }
+.fade-in-right { transform: translateX(40px); }
+.scale-in { transform: scale(0.95); }
+
+.fade-in.visible,
+.fade-in-left.visible,
+.fade-in-right.visible {
+    opacity: 1;
+    transform: translate(0, 0);
+}
+.scale-in.visible {
+    opacity: 1;
+    transform: scale(1);
+}
+@keyframes kenBurnsEffect {
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+  100% {
+    transform: scale(1.1) translate(-2%, 2%); /* Slowly zoom in and pan */
+  }
+}
 
 /* --- 3. HEADER & NAVIGATION --- */
 header {
@@ -97,9 +119,25 @@ nav a.active::after, nav a:hover::after { width: 100%; }
 
 /* --- 4. HOME PAGE HERO --- */
 .hero-container {
-    height: 100vh; width: 100%; background-size: cover; background-position: center;
-    position: relative; display: flex; justify-content: center; align-items: center;
-    flex-direction: column; background-image: url('kahaani_background_final.png.webp');
+    height: 100vh;
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    overflow: hidden; /* This is crucial to contain the zoom */
+}
+/* This new element holds our animated background */
+.hero-container::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0; /* Cover the entire area */
+    background-image: url('kahaani_background_final.png.webp');
+    background-size: cover;
+    background-position: center;
+    z-index: -1; /* Place it behind the content */
+    animation: kenBurnsEffect 30s infinite alternate; /* Apply the animation */
 }
 .hero-content h1 {
     font-family: 'The Seasons', serif; font-size: clamp(4.5rem, 15vw, 13rem); font-weight: normal;
@@ -347,4 +385,50 @@ nav a.active::after, nav a:hover::after { width: 100%; }
 nav a::before {
   content: none !important;
   display: none !important;
+}
+/* --- 8. ELEGANT PAGE TRANSITIONS --- */
+
+#page-transition-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--maroon-dark); /* Fades to your brand's dark maroon */
+    z-index: 9999; /* Ensures it's on top of everything */
+    pointer-events: none; /* Allows clicks to go through it when invisible */
+    opacity: 0;
+    transition: opacity 0.5s cubic-bezier(0.7, 0, 0.2, 1);
+}
+
+/* When the body has this class, the overlay becomes visible */
+body.is-fading-out #page-transition-overlay {
+    opacity: 1;
+}
+/* --- 9. FINAL TOUCH: Interactive Heading Gradient Wipe --- */
+
+/* This targets all major headings on your content pages */
+.page-content h1, 
+.page-content h2, 
+.page-content h3 {
+    color: var(--maroon-dark); /* This is the default color */
+
+    /* The magic starts here: we create a gradient and hide it */
+    background: linear-gradient(to right, var(--maroon-dark), var(--maroon-red), var(--maroon-dark));
+    background-size: 200% 200%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    
+    /* Make the text transparent so the background gradient can be seen */
+    -webkit-text-fill-color: transparent;
+    
+    /* This transition controls the speed of the wipe animation */
+    transition: background-position 0.8s ease;
+}
+
+/* On hover, we slide the background gradient into view */
+.page-content h1:hover, 
+.page-content h2:hover, 
+.page-content h3:hover {
+    background-position: -100% 0; /* The wipe effect */
 }
