@@ -1,6 +1,14 @@
-// ========================================================= //
-//  Kahaani Website Animations Script - Cool & Focused     //
-// ========================================================= //
+    // --- MOBILE MENU FUNCTIONALITY ---
+    const menuToggle = document.querySelector('.menu-toggle');
+    const nav = document.querySelector('nav');
+    
+    // Check if the button and nav exist on the page
+    if (menuToggle && nav) {
+        menuToggle.addEventListener('click', () => {
+            // This adds or removes the 'menu-open' class on the <nav> element
+            nav.classList.toggle('menu-open');
+        });
+    }
 
 document.addEventListener('DOMContentLoaded', () => {
     
