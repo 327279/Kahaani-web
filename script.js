@@ -1,3 +1,7 @@
+    
+    
+    
+    
     // --- MOBILE MENU FUNCTIONALITY ---
     const menuToggle = document.querySelector('.menu-toggle');
     const nav = document.querySelector('nav');
@@ -28,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- 2. Smooth Fade-in on Scroll for other elements ---
-    const fadeElems = document.querySelectorAll('.fade-in');
+    const fadeElems = document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right, .scale-in');
     
     const scrollObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
